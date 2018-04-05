@@ -8,7 +8,9 @@ var extractPlugin = new ExtractTextPlugin({
 });
 
 module.exports = {
-    entry: './src/js/app.js',
+    entry: {
+        app: './src/js/app.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
@@ -49,14 +51,52 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]'
+                        }
+                    }
+                ],
+                exclude:  path.resolve(__dirname, 'src/index.html'),
             }
         ]
     },
     plugins: [
         extractPlugin,
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             template: 'src/index.html'
         }),
+
+        //option1: using the HtmlWebpackPlugin when you have multiple html files.
+        //this will import bundle.js into users.html as well.
+       /* new HtmlWebpackPlugin({
+            filename: 'users.html',
+            template: 'src/users.html'
+        }),*/
+
+       //with chunks option we do not import any bundles into users.html
+       /* new HtmlWebpackPlugin({
+            filename: 'users.html',
+            template: 'src/users.html',
+            chunks:[]
+        }),*/
+
+       //if you want to inject any bundles into users.html
+        /*new HtmlWebpackPlugin({
+            filename: 'users.html',
+            template: 'src/users.html',
+            chunks:['app']
+        }),*/
+
+        //option2: importing the users.html file in app.js just like importing main.scss file and
+        // use file loader in this config file.
+
         new CleanWebpackPlugin(['dist'])
     ]
 };
