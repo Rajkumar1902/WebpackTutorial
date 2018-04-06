@@ -1,4 +1,8 @@
 var path = require('path');
+
+//for importing thirdparty package like jquery
+var webpack = require('webpack');
+
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -97,6 +101,11 @@ module.exports = {
         //option2: importing the users.html file in app.js just like importing main.scss file and
         // use file loader in this config file.
 
-        new CleanWebpackPlugin(['dist'])
+        new CleanWebpackPlugin(['dist']),
+
+        new webpack.ProvidePlugin({
+           $: 'jquery',
+            jquery: 'jquery'
+        }),
     ]
 };

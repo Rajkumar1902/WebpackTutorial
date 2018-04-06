@@ -2,18 +2,37 @@ import '../css/main.scss';
 import '../users.html'
 import { RandomGenerator } from './random-generator';
 
-const outputParagraph = document.querySelector('#outputParagraph');
+//before importing jquery
+//const outputParagraph = document.querySelector('#outputParagraph');
+const outputParagraph = $('#outputParagraph');
 
 const outputRandomInt = () => {
-    outputParagraph.textContent = RandomGenerator.randomInteger();
+    //before importing jquery
+    //outputParagraph.textContent = RandomGenerator.randomInteger();
+
+    //after importing jquery
+    outputParagraph.text(RandomGenerator.randomInteger());
 };
 
 const outputRandomRange = () => {
-    outputParagraph.textContent = RandomGenerator.randomRange(1, 500);
+    //before importing jquery
+    //outputParagraph.textContent = RandomGenerator.randomRange(1, 500);
+
+    //after importing jquery
+    outputParagraph.text(RandomGenerator.randomRange(1, 500));
 };
 
-const buttonRndInt = document.querySelector('#randomInt');
+//before importing jquery
+//const buttonRndInt = document.querySelector('#randomInt');
+
+//after importing jquery
+const buttonRndInt = jquery('#randomInt');
+
 const buttonRndRange = document.querySelector('#randomRange');
 
-buttonRndInt.addEventListener('click', outputRandomInt);
+//before importing jquery
+//buttonRndInt.addEventListener('click', outputRandomInt);
+
+//after importing jquery
+buttonRndInt.click('click', outputRandomInt);
 buttonRndRange.addEventListener('click', outputRandomRange);
